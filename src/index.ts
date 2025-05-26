@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
 import exceptionHandler from "./common/middlewares/ExceptionHandler";
 import userRoutes from "./modules/user/routes/userRoutes";
+import authRoutes from "./modules/auth/routes/authRoutes";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.get("/test", (req, res) => {
 });
 
 app.use("/users", userRoutes);
+app.use("/auth", authRoutes);
 
 app.use(exceptionHandler);
 
