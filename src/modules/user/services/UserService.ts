@@ -27,6 +27,16 @@ export class UserService {
       throw new UserFoundException("Username already exists!");
     }
 
+    let phoneExists = null;
+    if (createUserDto.phoneNumber) {
+      phoneExists = await this.usersRepository.findByPhoneNumber(
+        createUserDto.phoneNumber
+      );
+      if (phoneExists) {
+        throw new UserFoundException("Phone number already exists!");
+      }
+    }
+
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
 
     createUserDto.password = hashedPassword;
