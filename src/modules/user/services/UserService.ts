@@ -5,6 +5,7 @@ import { UserFoundException } from "../exceptions/UserFoundException";
 import { UserNotFoundException } from "../exceptions/UserNotFoundException";
 import { UserMapper } from "../mappers/UserMapper";
 import { UserRepository } from "../repository/UserRepository";
+import bcrypt from "bcryptjs";
 
 export class UserService {
   constructor(private readonly usersRepository: UserRepository) {}
@@ -25,6 +26,20 @@ export class UserService {
     if (usernameExists) {
       throw new UserFoundException("Username already exists!");
     }
+
+    let phoneExists = null;
+    if (createUserDto.phoneNumber) {
+      phoneExists = await this.usersRepository.findByPhoneNumber(
+        createUserDto.phoneNumber
+      );
+      if (phoneExists) {
+        throw new UserFoundException("Phone number already exists!");
+      }
+    }
+
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+
+    createUserDto.password = hashedPassword;
 
     const user = await this.usersRepository.createUser(createUserDto);
 
@@ -47,13 +62,12 @@ export class UserService {
 
   async delete(id: string): Promise<void> {
     const user = await this.usersRepository.findById(id);
-    if(!user) {
+    if (!user) {
       throw new UserNotFoundException("User not found!");
     }
 
     await this.usersRepository.delete(id);
   }
-
 
   async update(
     id: string,
