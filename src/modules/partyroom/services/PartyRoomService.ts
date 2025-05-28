@@ -23,12 +23,12 @@ export class PartyRoomService {
 
     const existing = await this.partyRoomRepository.findByName(name);
     if (existing && existing.condominiumId === condominiumId) {
-      throw new PartyRoomFoundException("Condominio já cadastrado");
+      throw new PartyRoomFoundException("Party Room already Exists");
     }
 
     const condominiumExists = await this.condominiumRepository.findById(condominiumId);
     if(!condominiumExists){
-        throw new CondominiumNotFoundException("Condomínio não encontrado!");
+        throw new CondominiumNotFoundException("Condominium not found!");
     }
 
     const partyRoom = await this.partyRoomRepository.create({
