@@ -5,22 +5,18 @@ import exceptionHandler from "./common/middlewares/ExceptionHandler";
 import userRoutes from "./modules/user/routes/userRoutes";
 import authRoutes from "./modules/auth/routes/authRoutes";
 import condominiumRoutes from "./modules/condominium/routes/condominiumRoutes";
+import partyroomRoutes from "./modules/partyroom/routes/partyroomRoutes";
 
 dotenv.config();
 
 const app = express();
-const prisma = new PrismaClient();
 
 app.use(express.json());
-
-
-app.get("/test", (req, res) => {
-  res.json({ message: "Rota de teste funcionando!" });
-});
 
 app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/condominiums", condominiumRoutes);
+app.use("/partyrooms", partyroomRoutes);
 
 app.use(exceptionHandler);
 
