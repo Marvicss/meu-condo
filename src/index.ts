@@ -6,6 +6,7 @@ import userRoutes from "./modules/user/routes/userRoutes";
 import authRoutes from "./modules/auth/routes/authRoutes";
 import condominiumRoutes from "./modules/condominium/routes/condominiumRoutes";
 import partyroomRoutes from "./modules/partyroom/routes/partyroomRoutes";
+import parkingRoutes from "./modules/parking/routes/parkingRoutes";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
 app.use("/condominiums", condominiumRoutes);
 app.use("/partyrooms", partyroomRoutes);
+app.use("/parkings", parkingRoutes);
 
 app.use(exceptionHandler);
 

@@ -41,9 +41,23 @@ model Condominium {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   PartyRoom   PartyRoom[]
+
+  Parking Parking[]
 }
 
 model PartyRoom {
+  id            String      @id @default(uuid())
+  name          String
+  description   String?
+  capacity      Int
+  available     Boolean     @default(true)
+  condominiumId String
+  condominium   Condominium @relation(fields: [condominiumId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Parking {
   id            String      @id @default(uuid())
   name          String
   description   String?
