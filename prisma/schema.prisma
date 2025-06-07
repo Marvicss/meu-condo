@@ -32,12 +32,25 @@ model User {
 }
 
 model Condominium {
-  id          String @id @default(uuid())
+  id          String      @id @default(uuid())
   name        String
-  cnpj        String @unique
+  cnpj        String      @unique
   address     String
-  email       String @unique
+  email       String      @unique
   phoneNumber String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  PartyRoom   PartyRoom[]
+}
+
+model PartyRoom {
+  id            String      @id @default(uuid())
+  name          String
+  description   String?
+  capacity      Int
+  available     Boolean     @default(true)
+  condominiumId String
+  condominium   Condominium @relation(fields: [condominiumId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
