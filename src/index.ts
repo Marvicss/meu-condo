@@ -8,6 +8,7 @@ import condominiumRoutes from "./modules/condominium/routes/condominiumRoutes";
 import partyroomRoutes from "./modules/partyroom/routes/partyroomRoutes";
 import parkingRoutes from "./modules/parking/routes/parkingRoutes";
 import accountabilityRoutes from "./modules/accountability/routes/accountabilityRoutes";
+import apartmentRoutes from "./modules/apartment/routes/apartmentRoutes";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use("/condominiums", condominiumRoutes);
 app.use("/partyrooms", partyroomRoutes);
 app.use("/parkings", parkingRoutes);
 app.use("/accountabilities", accountabilityRoutes);
+app.use("/apartments", apartmentRoutes);
 
 app.use(exceptionHandler);
 
