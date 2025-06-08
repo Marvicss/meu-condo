@@ -42,7 +42,8 @@ model Condominium {
   updatedAt   DateTime    @updatedAt
   PartyRoom   PartyRoom[]
 
-  Parking Parking[]
+  Parking        Parking[]
+  Accountability Accountability[]
 }
 
 model PartyRoom {
@@ -67,4 +68,22 @@ model Parking {
   condominium   Condominium @relation(fields: [condominiumId], references: [id])
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+}
+
+model Accountability {
+  id            String             @id @default(uuid())
+  title         String
+  description   String?
+  amount        Decimal
+  type          AccountabilityType
+  date          DateTime
+  condominiumId String
+  condominium   Condominium        @relation(fields: [condominiumId], references: [id])
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+}
+
+enum AccountabilityType {
+  INCOME
+  EXPENSE
 }
