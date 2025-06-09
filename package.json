@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "start": "node dist/src/index.js",
-    "prisma": "prisma"
+    "vercel-build": "prisma generate"
   },
   "keywords": [],
   "author": "",
