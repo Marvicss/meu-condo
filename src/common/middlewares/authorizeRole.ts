@@ -1,11 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 
 export function authorizeRole(...roles: string[]) {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return function (req: Request, res: Response, next: NextFunction): void {
     const user = (req as any).user;
+
     if (!user || !roles.includes(user.userType)) {
-      return res.status(403).json({ message: "Acesso negado" });
+      res.status(403).json({ message: "Acesso negado" });
+      return;
     }
+
     next();
   };
 }

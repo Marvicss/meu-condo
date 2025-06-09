@@ -12,11 +12,11 @@ export class PartyRoomsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<PartyRoomResponseDTO>> {
+  ): Promise<void> {
     const created = await this.partyRoomService.create(
       req.body as CreatePartyRoomRequestDTO
     );
-    return res
+    res
       .status(201)
       .json(PartyRoomMapper.toResponseDTO(created));
   }
@@ -25,9 +25,9 @@ export class PartyRoomsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<PartyRoomResponseDTO[]>> {
+  ): Promise<void> {
     const rooms = await this.partyRoomService.findAll();
-    return res
+    res
       .status(200)
       .json(rooms.map(PartyRoomMapper.toResponseDTO));
   }
@@ -36,10 +36,10 @@ export class PartyRoomsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<PartyRoomResponseDTO>> {
+  ): Promise<void> {
     const { id } = req.params;
     const room = await this.partyRoomService.findById(id);
-    return res
+    res
       .status(200)
       .json(PartyRoomMapper.toResponseDTO(room));
   }
@@ -48,13 +48,13 @@ export class PartyRoomsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<PartyRoomResponseDTO>> {
+  ): Promise<void> {
     const { id } = req.params;
     const updated = await this.partyRoomService.update(
       id,
       req.body as UpdatePartyRoomRequestDTO
     );
-    return res
+    res
       .status(200)
       .json(PartyRoomMapper.toResponseDTO(updated));
   }
@@ -63,9 +63,9 @@ export class PartyRoomsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<void>> {
+  ): Promise<void> {
     const { id } = req.params;
     await this.partyRoomService.delete(id);
-    return res.status(204).send();
+    res.status(204).send();
   }
 }

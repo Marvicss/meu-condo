@@ -12,11 +12,11 @@ export class CondominiumsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<CondominiumResponseDTO>> {
+  ): Promise<void>{
     const created = await this.condominiumService.create(
       req.body as CreateCondominiumRequestDTO
     );
-    return res
+    res
       .status(201)
       .json(CondominiumMapper.toCondominiumResponseDTO(created));
   }
@@ -25,9 +25,9 @@ export class CondominiumsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<CondominiumResponseDTO[]>> {
+  ): Promise<void> {
     const result = await this.condominiumService.findAll();
-    return res
+    res
       .status(200)
       .json(result.map(CondominiumMapper.toCondominiumResponseDTO));
   }
@@ -36,10 +36,10 @@ export class CondominiumsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<CondominiumResponseDTO>> {
+  ): Promise<void> {
     const { id } = req.params;
     const result = await this.condominiumService.findById(id);
-    return res
+    res
       .status(200)
       .json(CondominiumMapper.toCondominiumResponseDTO(result));
   }
@@ -48,13 +48,13 @@ export class CondominiumsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<CondominiumResponseDTO>> {
+  ): Promise<void> {
     const { id } = req.params;
     const updated = await this.condominiumService.update(
       id,
       req.body as UpdateCondominiumRequestDTO
     );
-    return res
+    res
       .status(200)
       .json(CondominiumMapper.toCondominiumResponseDTO(updated));
   }
@@ -63,9 +63,9 @@ export class CondominiumsController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<void>> {
+  ): Promise<void> {
     const { id } = req.params;
     await this.condominiumService.delete(id);
-    return res.status(204).send();
+    res.status(204).send();
   }
 }
