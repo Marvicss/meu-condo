@@ -7,48 +7,48 @@ import { AccountabilityService } from "../service/AccountabilityService";
 export class AccountabilityController {
   constructor(private readonly accountabilityService: AccountabilityService) {}
 
-  async create(req: Request, res: Response, next: NextFunction) {
+  async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     const dto: CreateAccountabilityRequestDTO = req.body;
 
     const record = await this.accountabilityService.create(dto);
     const response = AccountabilityMapper.toResponseDTO(record);
 
-    return res.status(201).json(response);
+     res.status(201).json(response);
   }
 
-  async listByCondo(req: Request, res: Response, next: NextFunction) {
+  async listByCondo(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { condominiumId } = req.params;
 
     const records = await this.accountabilityService.listAllByCondo(condominiumId);
     const response = records.map(AccountabilityMapper.toResponseDTO);
 
-    return res.status(200).json(response);
+     res.status(200).json(response);
   }
 
-  async findById(req: Request, res: Response, next: NextFunction) {
+  async findById(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { id } = req.params;
 
     const record = await this.accountabilityService.findById(id);
     const response = AccountabilityMapper.toResponseDTO(record);
 
-    return res.status(200).json(response);
+     res.status(200).json(response);
   }
 
-  async update(req: Request, res: Response, next: NextFunction) {
+  async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { id } = req.params;
     const dto: UpdateAccountabilityRequestDTO = req.body;
 
     const record = await this.accountabilityService.update(id, dto);
     const response = AccountabilityMapper.toResponseDTO(record);
 
-    return res.status(200).json(response);
+     res.status(200).json(response);
   }
 
-  async delete(req: Request, res: Response, next: NextFunction) {
+  async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { id } = req.params;
 
     await this.accountabilityService.delete(id);
 
-    return res.status(204).send();
+     res.status(204).send();
   }
 }

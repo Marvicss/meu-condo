@@ -6,18 +6,20 @@ export default function exceptionHandler(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+):void {
   if (err instanceof AppError) {
-    return res.status(err.statusCode).json({
+    res.status(err.statusCode).json({
       status: "error",
       message: err.message,
     });
+    return;
   }
 
   console.error(err); 
 
-  return res.status(500).json({
+   res.status(500).json({
     status: "error",
     message: "Internal server error",
   });
+  return
 }

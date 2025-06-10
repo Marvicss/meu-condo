@@ -45,6 +45,7 @@ model Condominium {
   Parking        Parking[]
   Accountability Accountability[]
   Apartment       Apartment[]
+  News       News[]
 }
 
 model PartyRoom {
@@ -95,6 +96,19 @@ model Apartment {
   condominium    Condominium @relation(fields: [condominiumId], references: [id])
 
   @@map("apartments") // Opcional: nome da tabela no banco, se quiser customizar
+}
+
+model News {
+  id             String      @id @default(uuid())
+  condominiumId  String
+  message        String
+  type           String
+  createdAt      DateTime    @default(now())
+
+  // Relacionamento
+  condominium    Condominium @relation(fields: [condominiumId], references: [id])
+
+  @@map("news") // Opcional: nome da tabela no banco, se quiser customizar
 }
 
 enum AccountabilityType {

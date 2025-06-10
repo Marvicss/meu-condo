@@ -8,32 +8,32 @@ import { Request, Response, NextFunction } from "express";
 export class UsersController {
   constructor(private readonly usersService: UserService) {}
 
-async create(req: Request, res: Response, next: NextFunction): Promise<Response<CreateUserResponseDTO>> {
+async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     const user = await this.usersService.create(req.body);
-    return res.status(201).json(user);
+     res.status(201).json(user);
   }
 
-  async listAll(req: Request, res: Response, next: NextFunction): Promise<Response<CreateUserResponseDTO[]>> {
+  async listAll(req: Request, res: Response, next: NextFunction): Promise<void> {
     const users = await this.usersService.listAll();
-    return res.status(200).json(users);
+     res.status(200).json(users);
   }
 
-  async findById(req: Request, res: Response, next: NextFunction): Promise<Response<CreateUserResponseDTO>> {
+  async findById(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { id } = req.params;
     const user = await this.usersService.findById(id);
-    return res.status(200).json(user);
+     res.status(200).json(user);
   }
 
-  async delete(req: Request, res: Response, next: NextFunction): Promise<Response<void>> {
+  async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { id } = req.params;
     await this.usersService.delete(id);
-    return res.status(204).send();
+    res.status(204).send();
   }	
 
-  async update(req: Request, res: Response, next: NextFunction): Promise<Response<CreateUserResponseDTO>> {
+  async update(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { id } = req.params;
     const user = await this.usersService.update(id, req.body);
-    return res.status(200).json(user);
+     res.status(200).json(user);
   }
 
   

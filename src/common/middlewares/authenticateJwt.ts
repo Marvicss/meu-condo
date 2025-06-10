@@ -1,12 +1,13 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secretaqui";
 
-export function authenticateJWT(req: Request, res: Response, next: NextFunction) {
+export function authenticateJWT(req: Request, res: Response, next: NextFunction): void {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
-    return res.status(401).json({ message: "Token not provided" });
+   res.status(401).json({ message: "Token not provided" });
+   return;
   }
 
   const [, token] = authHeader.split(" ");
@@ -15,6 +16,7 @@ export function authenticateJWT(req: Request, res: Response, next: NextFunction)
     (req as any).user = decoded;
     next();
   } catch (err) {
-    return res.status(401).json({ message: "Invalid token" });
+    res.status(401).json({ message: "Invalid token" });
+    return
   }
 }

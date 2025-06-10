@@ -10,42 +10,42 @@ export class ParkingController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<CreateParkingResponseDTO>> {
+  ): Promise<void> {
     const parking = await this.parkingService.create(
       req.body as CreateParkingRequestDTO
     );
-    return res.status(201).json(parking);
+    res.status(201).json(parking);
   }
 
     async listAll(
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response<CreateParkingResponseDTO[]>> {
+    ): Promise<void> {
         const parkings = await this.parkingService.findAll();
-        return res.status(200).json(parkings);
+        res.status(200).json(parkings);
     }
 
-    async findById(req: Request, res: Response, next: NextFunction): Promise<Response<CreateParkingResponseDTO>> {
+    async findById(req: Request, res: Response, next: NextFunction): Promise<void> {
         const parking = await this.parkingService.findById(req.params.id);
-        return res.status(200).json(parking);
+        res.status(200).json(parking);
     }
 
     async update(
         req: Request,
         res: Response,
         next: NextFunction
-    ): Promise<Response<CreateParkingResponseDTO>> {
+    ): Promise<void> {
         const parking = await this.parkingService.update(
             req.params.id,
             req.body as CreateParkingRequestDTO
         );
-        return res.status(200).json(parking);
+        res.status(200).json(parking);
     }
 
-    async delete(req: Request, res: Response, next: NextFunction): Promise<Response<void>> {
+    async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
         await this.parkingService.delete(req.params.id);
-        return res.status(204).send();
+        res.status(204).send();
     }
 
     
