@@ -8,7 +8,7 @@ import partyroomRoutes from "./modules/partyroom/routes/partyroomRoutes";
 import parkingRoutes from "./modules/parking/routes/parkingRoutes";
 import accountabilityRoutes from "./modules/accountability/routes/accountabilityRoutes";
 import apartmentRoutes from "./modules/apartment/routes/apartmentRoutes";
-
+import newsRouter from "./modules/news/routes/newsRoutes"
 dotenv.config();
 
 const app = express();
@@ -22,6 +22,7 @@ app.use("/partyrooms", partyroomRoutes);
 app.use("/parkings", parkingRoutes);
 app.use("/accountabilities", accountabilityRoutes);
 app.use("/apartments", apartmentRoutes);
+app.use("/news", newsRouter);
 
 app.use(exceptionHandler);
 
